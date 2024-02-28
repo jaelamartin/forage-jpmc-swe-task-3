@@ -14,6 +14,9 @@ export class DataManipulator {
         stock: el.stock,
         top_ask_price: el.top_ask && el.top_ask.price || 0,
         timestamp: el.timestamp,
+        upper_bound: number,
+        lower_bound: number,
+        trigger_alert: number | undefined,
       };
     })
   }

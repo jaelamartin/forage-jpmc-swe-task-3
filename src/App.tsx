@@ -3,6 +3,10 @@ import DataStreamer, { ServerRespond } from './DataStreamer';
 import Graph from './Graph';
 import './App.css';
 
+
+
+
+
 interface IState {
   data: ServerRespond[],
   showGraph: boolean,

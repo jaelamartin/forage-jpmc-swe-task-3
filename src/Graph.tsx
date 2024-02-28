@@ -19,6 +19,8 @@ class Graph extends Component<IProps, {}> {
   }
 
   componentDidMount() {
+
+  }
     // Get element from the DOM.
     const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
 
@@ -27,6 +29,9 @@ class Graph extends Component<IProps, {}> {
       top_ask_price: 'float',
       top_bid_price: 'float',
       timestamp: 'date',
+      upper_bound: 'float',
+      lower_bound: 'float',
+      trigger_alert: 'float',
     };
 
     if (window.perspective && window.perspective.worker()) {
@@ -44,16 +49,20 @@ class Graph extends Component<IProps, {}> {
         top_ask_price: 'avg',
         top_bid_price: 'avg',
         timestamp: 'distinct count',
+        upper_bound: 'avg',
+        lower_bound: 'avg',
+        trigger_alert: 'avg',
       }));
     }
   }
 
   componentDidUpdate() {
     if (this.table) {
-      this.table.update(
-        DataManipulator.generateRow(this.props.data),
-      );
+       this.table.update(
+           DataManipulator.generateRow(this.props.data),
+      ] as unknown as TableData);
     }
+
   }
 }
 
