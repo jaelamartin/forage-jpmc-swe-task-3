@@ -1,0 +1,90 @@
+From d11b5274162b4cd9179e5539b05a93b11069266c Mon Sep 17 00:00:00 2001
+From: Jaela Martin <jmartin@appdev.yearup.org>
+Date: Wed, 28 Feb 2024 17:14:27 -0600
+Subject: [PATCH] Your descriptive commit message
+
+---
+ src/App.tsx            |  4 ++++
+ src/DataManipulator.ts |  3 +++
+ src/Graph.tsx          | 15 ++++++++++++---
+ 3 files changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/src/App.tsx b/src/App.tsx
+index 274d20b..a7e3b04 100755
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -3,6 +3,10 @@ import DataStreamer, { ServerRespond } from './DataStreamer';
+ import Graph from './Graph';
+ import './App.css';
+ 
++
++
++
++
+ interface IState {
+   data: ServerRespond[],
+   showGraph: boolean,
+diff --git a/src/DataManipulator.ts b/src/DataManipulator.ts
+index 7f62295..0a28a07 100644
+--- a/src/DataManipulator.ts
++++ b/src/DataManipulator.ts
+@@ -14,6 +14,9 @@ export class DataManipulator {
+         stock: el.stock,
+         top_ask_price: el.top_ask && el.top_ask.price || 0,
+         timestamp: el.timestamp,
++        upper_bound: number,
++        lower_bound: number,
++        trigger_alert: number | undefined,
+       };
+     })
+   }
+diff --git a/src/Graph.tsx b/src/Graph.tsx
+index 277797d..375946a 100644
+--- a/src/Graph.tsx
++++ b/src/Graph.tsx
+@@ -19,6 +19,8 @@ class Graph extends Component<IProps, {}> {
+   }
+ 
+   componentDidMount() {
++
++  }
+     // Get element from the DOM.
+     const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
+ 
+@@ -27,6 +29,9 @@ class Graph extends Component<IProps, {}> {
+       top_ask_price: 'float',
+       top_bid_price: 'float',
+       timestamp: 'date',
++      upper_bound: 'float',
++      lower_bound: 'float',
++      trigger_alert: 'float',
+     };
+ 
+     if (window.perspective && window.perspective.worker()) {
+@@ -44,16 +49,20 @@ class Graph extends Component<IProps, {}> {
+         top_ask_price: 'avg',
+         top_bid_price: 'avg',
+         timestamp: 'distinct count',
++        upper_bound: 'avg',
++        lower_bound: 'avg',
++        trigger_alert: 'avg',
+       }));
+     }
+   }
+ 
+   componentDidUpdate() {
+     if (this.table) {
+-      this.table.update(
+-        DataManipulator.generateRow(this.props.data),
+-      );
++       this.table.update(
++           DataManipulator.generateRow(this.props.data),
++      ] as unknown as TableData);
+     }
++
+   }
+ }
+ 
+-- 
+2.42.0.windows.2
+
